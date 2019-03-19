@@ -65,7 +65,7 @@ export class AmqpPubSub implements PubSubEngine {
     } else {
       return new Promise<number>((resolve, reject) => {
         this.logger.trace("trying to subscribe to queue '%s'", triggerName);
-        this.consumer.subscribe(triggerName, (msg) => this.onMessage(triggerName, msg))
+        this.consumer.subscribe(trigger, (msg) => this.onMessage(triggerName, msg))
           .then(disposer => {
             this.subsRefsMap[triggerName] = [...(this.subsRefsMap[triggerName] || []), id];
             this.unsubscribeChannel = disposer;
